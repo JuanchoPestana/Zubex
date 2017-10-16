@@ -1,0 +1,89 @@
+<!DOCTYPE HTML> 
+<html>
+<title>Captura de Codigos Unicos y Pedidos</title>
+
+<img src="logoZubex.jpg" alt="Zubex" style="width:175px;height:100px">
+<h2><font color= "white">Captura de Codigos Unicos y Pedidos</font color></h2><br>
+<body bgcolor="#000E6">
+
+	
+	</style>
+
+	</style>
+	
+	
+	
+	<style>
+	form { width: 400px; }
+	label { float: left; width: 150px; color: white}
+	input[type=text] { float: left: 200px; width: 150px; }
+	.clear { clear: both; height: 0; line-height: 0; }
+	.floatright { float: right; }
+	</style>
+	
+	
+	<form>
+	<label for="Pedido">Pedido:</label> 		<input type="text" name="Pedido" id="Pedido"/><br/><br/>
+	<label for="CodigoCompleto">Codigo Completo:</label> 	<input type="text" name="CodigoCompleto" id="CodigoCompleto" /><br/><br/>
+	<label for="CodigoUnico">Codigo Unico:</label> 	<input type="text" name="CodigoUnico" id="CodigoUnico" /><br/><br/>
+	<label for="Material">Material: </label>		<input type="text" name="Material" id="Material"/><br/><br/>
+	<label for="Medida">Medida: </label>		<input type="text" name="Medida" id="Medida"/><br/><br/>
+	<label for="Impresion">Impresion: </label>		<input type="text" name="Impresion" id="Impresion"/><br/><br/>
+	<label for="Sello">Sello:</label> 		<input type="text" name="Sello" id="Sello"/><br/><br/>
+	<label for="DistanciaSello">Dist. Sello:</label> 	<input type="text" name="DistanciaSello" id="DistanciaSello"/><br/><br/>
+	<label for="Cliente">Cliente:</label> 	<input type="text" name="Cliente" id="Cliente"/><br/><br/>
+	<label for="Color">Color:</label> 	<input type="text" name="Color" id="Color"/><br/><br/>
+	
+	<input type="submit" class="floatright" value="Enviar" id="Enviar"/><br class="clear"/>
+	</form>
+
+	<?php
+
+
+		$mysql_host = "localhost";
+		$mysql_database = "conversion";
+		$mysql_user = "root";
+		$mysql_password = "";
+		$DB_Table = "minutosMuertos";
+
+
+		if (isset ($_GET["pedido"]))
+			$pedido = $_GET["pedido"];
+		else
+			$pedido = "FAILPEDIDO";
+
+
+
+		if (isset ($_GET["codigoUnico"]))
+			$codigoUnico = $_GET["codigoUnico"];
+		else
+			$codigoUnico = "FAILCODIGOUNICO";
+
+
+		if (isset ($_GET["minMuertos"]))
+			$minMuertos = $_GET["minMuertos"];
+		else
+			$minMuertos = "FAILMINMUERTOS";
+
+
+
+
+		$con = mysql_connect($mysql_host,$mysql_user,$mysql_password ) or die(mysql_error()); 
+		mysql_select_db($mysql_database,$con) or die(mysql_error()); 
+
+		$sql = "insert into $DB_Table (pedido,codigoUnico,minMuertos) values('$pedido', '$codigoUnico', '$minMuertos');";
+		$res = mysql_query($sql,$con) or die(mysql_error());
+
+		mysql_close($con);
+		if ($res) {
+			echo "success";
+		}else{
+			echo "failed";
+		}// end else
+
+	?>
+
+
+
+</body>
+</html>
